@@ -1,5 +1,6 @@
 package com.vougue.tontineApp.controller;
 
+import com.vougue.tontineApp.model.Member;
 import com.vougue.tontineApp.model.TontineGroup;
 import com.vougue.tontineApp.model.dto.GroupUpdateDTO;
 import com.vougue.tontineApp.service.TontineService;
@@ -30,6 +31,19 @@ public class TontineController {
     public ResponseEntity<TontineGroup> createGroup(@RequestBody TontineGroup newGroup) {
         return ResponseEntity.ok(tontineService.createGroup(newGroup));
     }
+
+    // Endpoint pour ajouter un membre à un groupe
+    @PostMapping("/{groupId}/members")
+    public ResponseEntity<Member> addMemberToGroup(
+            @PathVariable Long groupId,
+            @RequestBody Member newMember) {
+        return ResponseEntity.ok(tontineService.addMemberToGroup(groupId, newMember));
+    }
+
+
+
+
+
 
     @PostMapping("/rotate/{groupId}")
     public ResponseEntity<String> rotateGroup(@PathVariable Long groupId) {

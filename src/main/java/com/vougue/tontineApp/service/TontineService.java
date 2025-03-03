@@ -4,6 +4,7 @@ import com.vougue.tontineApp.model.TontineGroup;
 import com.vougue.tontineApp.model.Member;
 import com.vougue.tontineApp.model.dto.GroupUpdateDTO;
 import com.vougue.tontineApp.repository.GroupRepository;
+import com.vougue.tontineApp.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.List;
 public class TontineService {
 
     private final GroupRepository groupRepository;
+    private final MemberRepository memberRepository;
 
 
 
@@ -69,7 +71,7 @@ public class TontineService {
         groupRepository.deleteById(groupId);
     }
 
-    // Méthode pour récupérer un groupe par son ID
+    // Method for retrieving a group by its ID
     public TontineGroup getGroupById(Long groupId) {
         return groupRepository.findById(groupId)
                 .orElseThrow(() -> new RuntimeException("Groupe ID " + groupId + " non trouvé"));
@@ -77,5 +79,14 @@ public class TontineService {
 
     public TontineGroup createGroup(TontineGroup newGroup) {
         return groupRepository.save(newGroup);
+    }
+
+    // add member to a group
+    public Member addMemberToGroup(Long groupId, Member newMember) {
+        TontineGroup group = groupRepository.findById(groupId)
+                .orElseThrow(() -> new RuntimeException("Groupe ID " + groupId + " non trouvé"));
+
+        newMember.setGroup(group); // Associer le membre au groupe
+        return memberRepository.save(newMember);
     }
 }
