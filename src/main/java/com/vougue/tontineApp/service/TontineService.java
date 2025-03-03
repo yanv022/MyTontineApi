@@ -17,6 +17,8 @@ public class TontineService {
 
     private final GroupRepository groupRepository;
 
+
+
     // Méthode 1 : Valide
     public List<TontineGroup> getAllGroups() {
         return groupRepository.findAll(); // ✅ Bon return
@@ -71,5 +73,9 @@ public class TontineService {
     public TontineGroup getGroupById(Long groupId) {
         return groupRepository.findById(groupId)
                 .orElseThrow(() -> new RuntimeException("Groupe ID " + groupId + " non trouvé"));
+    }
+
+    public TontineGroup createGroup(TontineGroup newGroup) {
+        return groupRepository.save(newGroup);
     }
 }

@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tontine")
+@RequestMapping({"/api/tontine", "/api/tontine/"})
 @RequiredArgsConstructor
 public class TontineController {
     private final TontineService tontineService;
@@ -24,6 +24,17 @@ public class TontineController {
     @GetMapping({"/{groupId}", "/{groupId}/"}) // GET http://localhost:8080/api/tontine/1
     public ResponseEntity<TontineGroup> getGroupById(@PathVariable Long groupId) {
         return ResponseEntity.ok(tontineService.getGroupById(groupId));
+    }
+    // Endpoint POST to create a new group
+    @PostMapping
+    public ResponseEntity<TontineGroup> createGroup(@RequestBody TontineGroup newGroup) {
+        return ResponseEntity.ok(tontineService.createGroup(newGroup));
+    }
+
+    @PostMapping("/rotate/{groupId}")
+    public ResponseEntity<String> rotateGroup(@PathVariable Long groupId) {
+        tontineService.processRotation(groupId);
+        return ResponseEntity.ok("Rotation réussie");
     }
     // Mise à jour partielle
     @PatchMapping({"/{groupId}", "/{groupId}/"}) // GET http://localhost:8080/api/tontine/1
@@ -48,10 +59,5 @@ public class TontineController {
     public ResponseEntity<Void> deleteGroup(@PathVariable Long groupId) {
         tontineService.deleteGroup(groupId);
         return ResponseEntity.noContent().build();
-    }
-    @PostMapping("/rotate/{groupId}")
-    public ResponseEntity<String> rotateGroup(@PathVariable Long groupId) {
-        tontineService.processRotation(groupId);
-        return ResponseEntity.ok("Rotation réussie");
     }
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
@@ -19,6 +20,7 @@ public class TontineGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String groupName;
     private BigDecimal totalAmount;
     private int rotationOrder;
@@ -27,6 +29,4 @@ public class TontineGroup {
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     private List<Member> members;
 
-    // Methode, um eine Gruppe mit ihren Mitgliedern zu finden
-    //@Query("SELECT g FROM TontineGroup g LEFT JOIN FETCH g.members WHERE g.id = :id")
 }
