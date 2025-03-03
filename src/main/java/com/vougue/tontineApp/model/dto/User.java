@@ -22,9 +22,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Le nom d'utilisateur est obligatoire")
+    @NotBlank(message = "user name required.")
     private String username;
-    @NotBlank(message = "Le mot de passe est obligatoire")
+    @NotBlank(message = "password required")
     private String password;
     private String role;
 

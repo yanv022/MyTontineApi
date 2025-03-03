@@ -18,17 +18,17 @@ public class AuthController {
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
-
+    // http://localhost:8080/api/auth/register
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
         return ResponseEntity.ok(authService.registerUser(user.getUsername(), user.getPassword()));
     }
-
+    // http://localhost:8080/api/auth/login
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User user) {
         if (authService.authenticate(user.getUsername(), user.getPassword())) {
-            return ResponseEntity.ok("Authentification réussie");
+            return ResponseEntity.ok("Successful authentication");
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Échec de l'authentification");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failure");
     }
 }
