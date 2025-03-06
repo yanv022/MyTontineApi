@@ -32,8 +32,8 @@ public class TontineController {
         return ResponseEntity.ok(tontineService.createGroup(newGroup));
     }
 
-    // Endpoint pour ajouter un membre à un groupe
-    @PostMapping("/{groupId}/members")
+    // Endpoint to add a member to a group
+    @PostMapping({"/{groupId}/members", "/{groupId}/members/"})
     public ResponseEntity<Member> addMemberToGroup(
             @PathVariable Long groupId,
             @RequestBody Member newMember) {

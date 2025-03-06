@@ -26,7 +26,7 @@ public class TontineGroup {
     private int rotationOrder;
     private LocalDate nextPayout;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Member> members;
 
 }

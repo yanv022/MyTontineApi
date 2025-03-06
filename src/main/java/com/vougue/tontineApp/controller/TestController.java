@@ -8,6 +8,6 @@ public class TestController {
 
     @GetMapping("/test-db")
     public String testConnection() {
-        return "Connexion PostgreSQL réussie ! 🎉";
+        return "Erfolgreiche PostgreSQL-Verbindung!🎉";
     }
 }
