@@ -19,6 +19,7 @@ public class AuthController {
         this.authService = authService;
     }
     // http://localhost:8080/api/auth/register
+
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
         return ResponseEntity.ok(authService.registerUser(user.getUsername(), user.getPassword()));

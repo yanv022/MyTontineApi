@@ -1,12 +1,11 @@
 package com.vougue.tontineApp.model.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import jakarta.validation.constraints.NotBlank;
+
+import java.util.Date;
 
 @Table(name = "app_user")
 @Entity
@@ -23,9 +22,16 @@ public class User {
     private Long id;
 
     @NotBlank(message = "user name required.")
+    @Column(unique = true, nullable = false)
     private String username;
+
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    @Column(nullable = false)
     @NotBlank(message = "password required")
     private String password;
-    private String role;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt = new Date();
 }

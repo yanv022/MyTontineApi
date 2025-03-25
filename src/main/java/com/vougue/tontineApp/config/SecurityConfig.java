@@ -2,6 +2,7 @@ package com.vougue.tontineApp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -19,6 +20,7 @@ public class SecurityConfig {
     // Configuration des règles de sécurité
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
                 .csrf().disable() // Désactiver CSRF (nécessaire pour les API REST)
                 .authorizeHttpRequests(auth -> auth
@@ -27,16 +29,20 @@ public class SecurityConfig {
                 )
                 .httpBasic(); // Utiliser l'authentification de base (Basic Auth)
 
+        //http.formLogin(Customizer.withDefaults());
+        http.logout(Customizer.withDefaults());
+
+
         return http.build();
+        
     }
 
     // Configuration d'un utilisateur en mémoire (pour les tests)
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails user = User.builder()
-                .username("admin")
+                .username("admin1")
                 .password(passwordEncoder().encode("password")) // Encoder le mot de passe
-                .roles("USER")
                 .build();
 
         return new InMemoryUserDetailsManager(user);
